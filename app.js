@@ -63,7 +63,7 @@ app.get('/srch', (req, res) => {
         .then((resp) => {
             // console.log(resp);
             // console.log("cookies-", resp.cookie);
-            res.send(res.cookie);
+            res.send(resp);
         })
         .catch((err) => {
             console.log(err);
