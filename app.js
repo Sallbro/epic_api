@@ -44,8 +44,8 @@ app.get('/srch', (req, res) => {
     axios.get(url)
         .then((resp) => {
             console.log(resp);
-            console.log("cookies-", res.cookie);
-            res.send(resp);
+            console.log("cookies-", resp.cookie);
+            res.send(res.cookie);
         })
         .catch((err) => {
             console.log(err);
