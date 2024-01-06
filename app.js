@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const cheerio = require('cheerio');
 // const puppeteer = require('puppeteer');
-const puppeteer = require('puppeteer-extra');
-// const puppeteer = require('puppeteer-core');
-const chromium = require('chrome-aws-lambda');
+const puppeteer2 = require('puppeteer-extra');
+const puppeteer = require('puppeteer-core');
+const edgeChromium = require('chrome-aws-lambda');
 
 const axios = require('axios');
 const dotenv = require('dotenv');
@@ -25,19 +25,19 @@ app.get('/puppt', async (req, res) => {
 
         // Add stealth plugin and use defaults (all tricks to hide puppeteer usage)
         const StealthPlugin = require('puppeteer-extra-plugin-stealth');
-        puppeteer.use(StealthPlugin());
+        puppeteer2.use(StealthPlugin());
 
         // Add adblocker plugin to block all ads and trackers (saves bandwidth)
         const AdblockerPlugin = require('puppeteer-extra-plugin-adblocker');
-        puppeteer.use(AdblockerPlugin({ blockTrackers: true }));
+        puppeteer2.use(AdblockerPlugin({ blockTrackers: true }));
 
         (async()=>{const x = require("puppeteer"); console.log(await(await(await x.launch()).newPage()).browser().version())})()
 
         // Launch the browser and open a new blank page
         const browser = await puppeteer.launch({
-            args: chromium.args,
-            executablePath: process.env.CHROME_EXECUTABLE_PATH || await chromium.executablePath,
-            headless: 'new'
+            executablePath:await edgeChromium.executablePath || process.env.CHROME_EXECUTABLE_PATH,
+            args: edgeChromium.args,
+            headless: false
         });
         const page = await browser.newPage();
 
