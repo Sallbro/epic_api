@@ -37,7 +37,7 @@ app.get('/puppt', async (req, res) => {
         const browser = await puppeteer.launch({
             executablePath:await edgeChromium.executablePath || process.env.CHROME_EXECUTABLE_PATH,
             args: edgeChromium.args,
-            headless: false
+            headless: 'new'
         });
         const page = await browser.newPage();
 
